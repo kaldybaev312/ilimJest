@@ -1,20 +1,24 @@
-const express = require('express');
-const path = require('path');
+require('dotenv').config();
+const express    = require('express');
+const compression = require('compression');
+const cors       = require('cors');
+const path       = require('path');
 
-const app = express();
+const app  = express();
 const PORT = process.env.PORT || 3000;
 
-// Serve static files from public directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
+app.use(cors());
+app.use(express.json());
 
-// Fallback to index.html (Express 5 compatible)
-app.get('/{*splat}', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// API
+app.use('/api/words', require('./api/words'));
 
-app.listen(PORT, () => {
-  console.log(`\n✅  Сервер запущен!`);
-  console.log(`👉  Открой в браузере: http://localhost:${PORT}\n`);
-});
+// Статика (index.html — без words.json, данные идут через API)
+app.use(express.static(path.join(__dirname, 'public'), { maxAge: '1d' }));
+app.get('*', (_req, res) =>
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+);
 
+app.listen(PORT, () => console.log(`✅  http://localhost:${PORT}`));
 module.exports = app;

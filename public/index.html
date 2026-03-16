@@ -352,7 +352,7 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
       <div class="course-wrap">
         <div style="margin-bottom:22px">
           <h2 style="font-family:'Raleway',sans-serif;font-size:24px;font-weight:900;margin-bottom:4px">🎓 Курс РЖЯ</h2>
-          <p style="color:var(--muted);font-size:13px">Изучай жесты по темам — от простого к сложному. Уроки открываются последовательно.</p>
+          <p style="color:var(--muted);font-size:13px">Изучай жесты для реальной жизни — от приветствия до медицины. Уроки открываются последовательно.</p>
         </div>
         <div class="stats-bar">
           <div class="stat-pill"><div class="stat-pill-icon">⚡</div><div><div class="stat-val" id="stat-xp">0</div><div class="stat-lbl">Очки XP</div></div></div>
@@ -416,11 +416,14 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
             <div class="setup-lbl">Тема</div>
             <div class="setup-chips" id="qcat-chips">
               <button class="sc active" data-qcat="all">Все слова</button>
-              <button class="sc" data-qcat="tool">🔨 Инструменты</button>
-              <button class="sc" data-qcat="build">🏗 Строительство</button>
-              <button class="sc" data-qcat="wood">🪵 Дерево</button>
-              <button class="sc" data-qcat="metal">⚙️ Металл</button>
-              <button class="sc" data-qcat="size">📐 Размеры</button>
+              <button class="sc" data-qcat="greet">👋 Приветствие</button>
+              <button class="sc" data-qcat="family">👨‍👩‍👧 Семья</button>
+              <button class="sc" data-qcat="food">🍎 Еда</button>
+              <button class="sc" data-qcat="time">🕐 Время</button>
+              <button class="sc" data-qcat="emot">😊 Эмоции</button>
+              <button class="sc" data-qcat="jobs">👷 Профессии</button>
+              <button class="sc" data-qcat="med">🏥 Медицина</button>
+              <button class="sc" data-qcat="trans">🚌 Транспорт</button>
               <button class="sc" data-qcat="favs">⭐ Избранное</button>
             </div>
           </div>
@@ -633,43 +636,45 @@ let flashDeck=[],flashIdx=0,flashKnow=0,flashSet='all';
 //  CATEGORIES
 // ══════════════════════════════════════
 const CATS=[
-  {key:'all',  label:'Все',             match:()=>true},
-  {key:'tool', label:'🔨 Инструменты',  match:t=>/молоток|пила|ножниц|нож$|ножовка|дрель|сверло|плоскогубц|кусачки|монтировка|напильник|гвоздезабив|стеклорез/.test(t)},
-  {key:'build',label:'🏗 Строительство',match:t=>/стена|крыша|дверь|пол|потолок|фундамент|кирпич|штукатурк|цемент|бетон|каркас|балка|колонна/.test(t)},
-  {key:'wood', label:'🪵 Дерево',       match:t=>/дерев|древесин|берёз|береза|дуб|красное дерево|доска|плинтус|вагонка|хвойн/.test(t)},
-  {key:'metal',label:'⚙️ Металл',       match:t=>/сталь|железо|медь|хром|алюмин|нержавеющ|металл|гвоздь|шуруп|гайка|болт|шарнир/.test(t)},
-  {key:'size', label:'📐 Размеры',      match:t=>/метр|сантиметр|миллиметр|длина|ширина|высота|объём|объем|площадь|дециметр|размер|квадратн/.test(t)},
-  {key:'mat',  label:'🎨 Материалы',    match:t=>/пластик|резина|стекло|силикон|нейлон|мрамор|эпоксид|лак|краска|клей|герметик/.test(t)},
-  {key:'elec', label:'🔌 Электрика',    match:t=>/кабель|провод|розетк|электр|лампоч|щит/.test(t)},
-  {key:'plumb',label:'🚰 Сантехника',   match:t=>/труб|водопровод|кран|насос|шланг|вентиль|фитинг/.test(t)},
+  {key:'all',   label:'Все слова',       match:()=>true},
+  {key:'greet', label:'👋 Приветствие',  match:t=>/привет|здравствуй|добр|пока|имя|пожалуйста|спасибо|прости|извини|как дела|встреч/.test(t)},
+  {key:'nums',  label:'🔢 Числа',        match:t=>/^(один|два|три|четыр|пять|шесть|семь|восемь|девять|десять|ноль|d)/.test(t)||/число|сколько|цифр/.test(t)},
+  {key:'family',label:'👨‍👩‍👧 Семья',        match:t=>/мама|папа|брат|сестр|дедуш|бабуш|сын|дочь|муж|жена|семья|ребенок|дети|родитель|тёт|дяд/.test(t)},
+  {key:'colors',label:'🎨 Цвета',        match:t=>/красн|синий|зелен|желт|белый|черн|оранжев|фиолет|розов|голуб|серый|цвет/.test(t)},
+  {key:'body',  label:'🫀 Тело',         match:t=>/голова|рука|нога|глаз|ухо|нос|рот|зуб|шея|спина|сердце|живот|палец/.test(t)},
+  {key:'food',  label:'🍎 Еда',          match:t=>/хлеб|вода|молоко|мясо|рыба|овощ|фрукт|суп|чай|кофе|сок|еда|обед|завтрак|ужин|есть|пить/.test(t)},
+  {key:'time',  label:'🕐 Время',        match:t=>/сегодня|завтра|вчера|утро|вечер|ночь|день|неделя|месяц|год|час|минута|сейчас|когда|время/.test(t)},
+  {key:'emot',  label:'😊 Эмоции',       match:t=>/радость|грусть|злой|счастл|любовь|страх|удивл|плакать|смеяться|чувств|плохо|хорошо|нравится/.test(t)},
+  {key:'jobs',  label:'👷 Профессии',    match:t=>/врач|учитель|полицей|пожарн|водитель|инженер|повар|юрист|директор|начальник|студент/.test(t)},
+  {key:'home',  label:'🏠 Дом и быт',   match:t=>/квартира|комната|кухня|ванна|туалет|шкаф|кровать|диван|мебель|полка|плита|холодильник/.test(t)},
+  {key:'med',   label:'🏥 Медицина',     match:t=>/больниц|болезн|лекарств|операц|температур|боль|здоровь|аптек|скорая|укол|таблетк/.test(t)},
+  {key:'trans', label:'🚌 Транспорт',    match:t=>/машина|автобус|поезд|самолет|метро|такси|велосипед|водитель|билет|остановк/.test(t)},
 ];
 
 // ══════════════════════════════════════
 //  LESSONS CATALOG
 // ══════════════════════════════════════
 const LESSONS=[
-  {id:'l01',icon:'📏',level:'A1',title:'Размеры и измерения',   desc:'Метры, сантиметры, площадь и единицы измерения',  cat:'size', xp:30},
-  {id:'l02',icon:'🌲',level:'A1',title:'Деревянные материалы',  desc:'Береза, дуб, доски и породы дерева',              cat:'wood', xp:30},
-  {id:'l03',icon:'⚙️',level:'A1',title:'Металлы и сплавы',      desc:'Сталь, железо, медь и другие металлы',            cat:'metal',xp:30},
-  {id:'l04',icon:'🎨',level:'A1',title:'Строительные материалы',desc:'Пластик, резина, стекло, силикон',                cat:'mat',  xp:30},
-  {id:'l05',icon:'🔨',level:'A2',title:'Ручные инструменты',    desc:'Молоток, ножницы, нож, напильник',                cat:'tool', xp:40},
-  {id:'l06',icon:'🏠',level:'A2',title:'Части здания',          desc:'Стена, крыша, дверь, пол, каркас',               cat:'build',xp:40},
-  {id:'l07',icon:'🔌',level:'A2',title:'Электрика',             desc:'Кабели, провода, розетки, лампочки',              cat:'elec', xp:40},
-  {id:'l08',icon:'🚰',level:'A2',title:'Сантехника',            desc:'Трубы, шланги, насосы, вентили',                 cat:'plumb',xp:40},
-  {id:'l09',icon:'🪚',level:'B1',title:'Электроинструменты',    desc:'Дрель, шлифмашина, циркулярная пила',             cat:'tool', xp:50},
-  {id:'l10',icon:'🏗',level:'B1',title:'Строительство: детали', desc:'Балки, колонны, фундамент, штукатурка',           cat:'build',xp:50},
-  {id:'l11',icon:'📐',level:'B1',title:'Сложные измерения',     desc:'Объём, площадь, квадратный метр',                cat:'size', xp:50},
-  {id:'l12',icon:'🌳',level:'B1',title:'Обработка дерева',      desc:'Вагонка, шпунт, хвойная древесина',              cat:'wood', xp:50},
+  {id:'l01',icon:'👋',level:'A1',title:'Приветствие и базовое общение',desc:'Привет, спасибо, пожалуйста, как дела',         cat:'greet',  xp:30},
+  {id:'l02',icon:'👨‍👩‍👧',level:'A1',title:'Семья',                          desc:'Мама, папа, брат, сестра, дети',              cat:'family', xp:30},
+  {id:'l03',icon:'🎨',level:'A1',title:'Цвета',                          desc:'Красный, синий, зелёный, жёлтый и другие',    cat:'color',  xp:30},
+  {id:'l04',icon:'⏰',level:'A1',title:'Время и дни недели',             desc:'Сегодня, завтра, дни недели, месяцы',         cat:'time',   xp:30},
+  {id:'l05',icon:'🔢',level:'A1',title:'Числа',                          desc:'От нуля до тысячи',                           cat:'number', xp:30},
+  {id:'l06',icon:'🍎',level:'A2',title:'Еда и напитки',                  desc:'Хлеб, фрукты, овощи, напитки',               cat:'food',   xp:40},
+  {id:'l07',icon:'🏠',level:'A2',title:'Дом и мебель',                   desc:'Комнаты, мебель, бытовые предметы',          cat:'home',   xp:40},
+  {id:'l08',icon:'🚌',level:'A2',title:'Транспорт',                      desc:'Автобус, метро, такси, самолёт',              cat:'transport',xp:40},
+  {id:'l09',icon:'👤',level:'A2',title:'Тело человека',                  desc:'Голова, руки, ноги и другие части тела',     cat:'body',   xp:40},
+  {id:'l10',icon:'💊',level:'B1',title:'Здоровье и медицина',            desc:'Врач, больница, лекарства, симптомы',        cat:'health', xp:50},
+  {id:'l11',icon:'💼',level:'B1',title:'Работа и профессии',             desc:'Учитель, врач, офис, зарплата',              cat:'work',   xp:50},
+  {id:'l12',icon:'🎓',level:'B1',title:'Учёба и образование',            desc:'Школа, экзамен, оценки, диплом',             cat:'study',  xp:50},
+  {id:'l13',icon:'📱',level:'B1',title:'Технологии',                     desc:'Телефон, интернет, компьютер',               cat:'tech',   xp:50},
+  {id:'l14',icon:'🛒',level:'B1',title:'Покупки и деньги',               desc:'Магазин, цена, касса, деньги',               cat:'shop',   xp:50},
 ];
-
 // ══════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════
 async function init(){
-  try{
-    const r = await fetch('/api/words');
-    allWords = await r.json();
-  } catch(e){ allWords=[]; }
+  try{const r=await fetch('words.json');allWords=await r.json();}catch(e){allWords=[];}
   buildFilters(); applyFilter(); initTheme(); checkStreak();
 }
 function checkStreak(){
@@ -787,7 +792,7 @@ document.addEventListener('click',e=>{
   if(!e.target.closest('.search-wrap')) hideSuggestions();
 });
 
-async function showSuggestions(q){
+function showSuggestions(q){
   const sugg = document.getElementById('search-sugg');
   sugg.innerHTML='';
   const items=[];
@@ -799,12 +804,10 @@ async function showSuggestions(q){
       items.push({icon:'🕐',label:h.word,time:timeAgo(h.time),word:h.word});
     });
   } else {
-    try {
-      const res = await fetch('/api/words/search?q='+encodeURIComponent(q));
-      const matches = await res.json();
-      if(!matches.length){hideSuggestions();return;}
-      matches.forEach(w=>items.push({icon:'🤟',label:w.text,time:'',word:w.text}));
-    } catch(e){ hideSuggestions(); return; }
+    // show matches
+    const matches = allWords.filter(w=>w.text.toLowerCase().includes(q.toLowerCase())).slice(0,7);
+    if(!matches.length){hideSuggestions();return;}
+    matches.forEach(w=>items.push({icon:'🤟',label:w.text,time:'',word:w.text}));
   }
   items.forEach(item=>{
     const div=document.createElement('div');
@@ -1165,7 +1168,10 @@ function updStats(){
 // ─── Lesson runner ───
 function getLessonWords(lesson){
   const cat=CATS.find(c=>c.key===lesson.cat); if(!cat)return[];
-  return shuffle(allWords.filter(w=>cat.match(w.text.toLowerCase()))).slice(0,8);
+  const pool=allWords.filter(w=>cat.match(w.text.toLowerCase()));
+  // Pick 8 most relevant — prefer shorter, cleaner words
+  const clean=pool.filter(w=>w.text.length<30&&!w.text.includes(';')).slice(0,60);
+  return shuffle(clean.length>=4?clean:pool).slice(0,8);
 }
 
 function startLesson(lesson){

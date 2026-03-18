@@ -945,16 +945,23 @@ const LESSONS=[
 // ══════════════════════════════════════
 async function init(){
   try{
-    const r=await fetch('/api/words');
+    const r=await fetch('/api/words',{headers:{'Accept':'application/json'}});
     if(!r.ok) throw new Error('HTTP '+r.status);
-    const data=await r.json();
+    const ct=r.headers.get('content-type')||'';
+    if(!ct.includes('json')) throw new Error('Сервер вернул не JSON: '+ct);
+    const text=await r.text();
+    // strip BOM and whitespace
+    const clean=text.replace(/^\uFEFF/,'').trim();
+    let data;
+    try{ data=JSON.parse(clean); }
+    catch(je){ throw new Error('JSON parse error: '+je.message+' | начало ответа: '+clean.slice(0,80)); }
     allWords=Array.isArray(data)?data:[];
+    console.log('✅ Загружено слов:',allWords.length);
   }catch(e){
     console.error('API error:',e.message);
     allWords=[];
-    // Show helpful error in grid
     const grid=document.getElementById('grid');
-    if(grid) grid.innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><h3>Нет соединения с сервером</h3><p>Проверьте интернет или настройки Vercel / MongoDB</p></div>';
+    if(grid) grid.innerHTML=`<div class="empty"><div class="empty-icon">⚠️</div><h3>Ошибка загрузки данных</h3><p>${e.message}</p><p style="margin-top:8px;font-size:12px;color:var(--muted)">Откройте <b>/api/words</b> в браузере и проверьте ответ</p></div>`;
     const lm=document.getElementById('loadmore');
     if(lm) lm.style.display='none';
     const cnt=document.getElementById('count');

@@ -8,8 +8,14 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(compression());
-app.use(cors());
+app.use(cors({origin:'*'}));
 app.use(express.json());
+app.use((req,res,next)=>{
+  if(req.path.startsWith('/api/')){
+    res.setHeader('X-Content-Type-Options','nosniff');
+  }
+  next();
+});
 
 // API
 app.use('/api/words', require('./api/words'));

@@ -990,9 +990,9 @@ function saveCourse(){
 //  NAV
 // ══════════════════════════════════════
 function goTo(page){
-  if(page==='teacher'){setTimeout(()=>initTeacherPage(),0);}
-  ['dict','course','flash','quiz','favs','stats','settings'].forEach(p=>
+  ['dict','course','flash','quiz','favs','stats','settings','teacher'].forEach(p=>
     document.getElementById('page-'+p).style.display=p===page?'block':'none');
+  if(page==='teacher'){setTimeout(()=>initTeacherPage(),0);}
   document.querySelectorAll('.nav-tab,.mobile-tab').forEach(t=>
     t.classList.toggle('active',t.dataset.page===page));
   document.querySelector('.search-wrap').style.visibility=page==='dict'?'visible':'hidden';

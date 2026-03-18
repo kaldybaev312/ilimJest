@@ -38,6 +38,46 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
 .back-btn:hover{border-color:var(--accent);color:var(--accent)}
 
 
+
+/* ══ WORD CRUD ══ */
+.wc-toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.wc-search{flex:1;min-width:180px;padding:8px 12px 8px 34px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-family:'Noto Sans',sans-serif}
+.wc-search:focus{outline:none;border-color:var(--accent)}
+.wc-search-wrap{position:relative;flex:1;min-width:180px}
+.wc-search-wrap svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.wc-list{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 300px);overflow-y:auto}
+.wc-item{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:11px;padding:10px 12px;transition:border-color .2s}
+.wc-item:hover{border-color:var(--accent)}
+.wc-thumb{width:52px;height:52px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--tag-bg)}
+.wc-thumb-placeholder{width:52px;height:52px;border-radius:8px;background:var(--tag-bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.wc-info{flex:1;min-width:0}
+.wc-word{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wc-id{font-size:10px;color:var(--muted)}
+.wc-url{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.wc-btns{display:flex;gap:5px;flex-shrink:0}
+.wc-btn{width:30px;height:30px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .2s}
+.wc-btn-edit{background:var(--tag-bg);color:var(--accent)}
+.wc-btn-edit:hover{background:var(--accent);color:#fff}
+.wc-btn-del{background:#fee2e2;color:#dc2626}
+.wc-btn-del:hover{background:#dc2626;color:#fff}
+.wc-empty{text-align:center;padding:32px;color:var(--muted);font-size:14px}
+.wc-badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;background:var(--tag-bg);color:var(--muted);margin-left:4px}
+/* word modal tabs */
+.wm-tabs{display:flex;gap:3px;background:var(--tag-bg);border-radius:8px;padding:3px;margin-bottom:14px}
+.wm-tab{flex:1;padding:6px;border-radius:6px;border:none;cursor:pointer;font-size:12px;font-weight:600;font-family:'Noto Sans',sans-serif;color:var(--muted);background:transparent;transition:all .2s}
+.wm-tab.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px var(--shadow)}
+.wm-video-preview{width:100%;height:140px;background:#000;border-radius:10px;object-fit:contain;display:block}
+.wm-upload-area{border:2px dashed var(--border);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;margin-top:8px}
+.wm-upload-area:hover{border-color:var(--accent);background:var(--tag-bg)}
+.wm-upload-area input{display:none}
+.wm-upload-icon{font-size:32px;margin-bottom:8px}
+.wm-upload-text{font-size:13px;color:var(--muted)}
+.wm-upload-text b{color:var(--accent)}
+.wc-pagination{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px}
+.wc-page-btn{width:32px;height:32px;border-radius:7px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:13px;font-weight:600;transition:all .2s}
+.wc-page-btn:hover,.wc-page-btn.active{border-color:var(--accent);color:var(--accent)}
+.wc-page-info{font-size:13px;color:var(--muted)}
+
 /* ══ TEACHER PANEL ══ */
 .teacher-lock{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:48px 24px;text-align:center}
 .teacher-lock-icon{font-size:48px}
@@ -718,6 +758,7 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
       <div class="teacher-panel">
         <div class="teacher-tabs">
           <button class="teacher-tab active" onclick="teacherTab('lessons')">📚 Курсы</button>
+          <button class="teacher-tab" onclick="teacherTab('words')">🔤 Слова</button>
           <button class="teacher-tab" onclick="teacherTab('topics')">🏷️ Темы</button>
           <button class="teacher-tab" onclick="teacherTab('tinfo')">ℹ️ Инфо</button>
         </div>
@@ -729,6 +770,23 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
             <button class="btn btn-primary" onclick="openAddLesson()" style="font-size:12px;padding:7px 14px">+ Добавить курс</button>
           </div>
           <div class="tl-list" id="tl-list"></div>
+        </div>
+
+        <!-- WORDS TAB -->
+        <div id="tt-words" class="teacher-section">
+          <div class="wc-toolbar">
+            <div class="wc-search-wrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input class="wc-search" id="wc-search" type="text" placeholder="Поиск по слову…" oninput="wcSearch()">
+            </div>
+            <button class="btn btn-primary" onclick="openAddWord()" style="font-size:12px;padding:7px 14px;white-space:nowrap">+ Добавить слово</button>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">
+            Показаны слова из базы. Изменения сохраняются локально.
+            <span id="wc-count" style="font-weight:700;color:var(--accent)"></span>
+          </div>
+          <div class="wc-list" id="wc-list"></div>
+          <div class="wc-pagination" id="wc-pagination"></div>
         </div>
 
         <!-- TOPICS TAB -->
@@ -810,6 +868,50 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
       <div class="tl-modal-footer">
         <button class="btn btn-ghost" onclick="closeLessonModal()">Отмена</button>
         <button class="btn btn-primary" onclick="saveLessonModal()">💾 Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORD MODAL -->
+  <div class="tl-modal" id="word-modal" style="display:none">
+    <div class="tl-modal-box" style="max-width:480px">
+      <h3 id="wm-title">Новое слово</h3>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Текст (название жеста)</label>
+        <input class="tl-form-input" id="wm-text" placeholder="Например: привет">
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Видео</label>
+        <div class="wm-tabs">
+          <button class="wm-tab active" onclick="wmVideoTab('url')">🔗 Ссылка URL</button>
+          <button class="wm-tab" onclick="wmVideoTab('file')">📁 Загрузить файл</button>
+        </div>
+        <!-- URL input -->
+        <div id="wm-url-section">
+          <input class="tl-form-input" id="wm-url" placeholder="https://example.com/video.mp4" oninput="wmPreviewUrl()">
+          <div style="margin-top:6px;font-size:11px;color:var(--muted)">Поддерживаются: MP4, WebM, прямые ссылки</div>
+        </div>
+        <!-- File upload -->
+        <div id="wm-file-section" style="display:none">
+          <div class="wm-upload-area" onclick="document.getElementById('wm-file-input').click()">
+            <input type="file" id="wm-file-input" accept="video/*" onchange="wmHandleFile(event)">
+            <div class="wm-upload-icon">🎬</div>
+            <div class="wm-upload-text">Нажмите или перетащите видео<br><b>MP4, WebM, MOV</b> до 50MB</div>
+          </div>
+        </div>
+        <!-- Preview -->
+        <div id="wm-preview-wrap" style="display:none;margin-top:10px">
+          <video id="wm-preview" class="wm-video-preview" controls muted loop></video>
+        </div>
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Описание (необязательно)</label>
+        <input class="tl-form-input" id="wm-desc" placeholder="Короткое описание жеста">
+      </div>
+      <div id="wm-error" style="color:var(--danger);font-size:13px;min-height:18px"></div>
+      <div class="tl-modal-footer">
+        <button class="btn btn-ghost" onclick="closeWordModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveWordModal()" id="wm-save">💾 Сохранить</button>
       </div>
     </div>
   </div>
@@ -924,22 +1026,7 @@ const CATS=[
 // ══════════════════════════════════════
 //  LESSONS CATALOG
 // ══════════════════════════════════════
-const LESSONS=[
-  {id:'l01',icon:'👋',level:'A1',title:'Приветствие и базовое общение',desc:'Привет, спасибо, пожалуйста, как дела',         cat:'greet',  xp:30},
-  {id:'l02',icon:'👨‍👩‍👧',level:'A1',title:'Семья',                          desc:'Мама, папа, брат, сестра, дети',              cat:'family', xp:30},
-  {id:'l03',icon:'🎨',level:'A1',title:'Цвета',                          desc:'Красный, синий, зелёный, жёлтый и другие',    cat:'color',  xp:30},
-  {id:'l04',icon:'⏰',level:'A1',title:'Время и дни недели',             desc:'Сегодня, завтра, дни недели, месяцы',         cat:'time',   xp:30},
-  {id:'l05',icon:'🔢',level:'A1',title:'Числа',                          desc:'От нуля до тысячи',                           cat:'number', xp:30},
-  {id:'l06',icon:'🍎',level:'A2',title:'Еда и напитки',                  desc:'Хлеб, фрукты, овощи, напитки',               cat:'food',   xp:40},
-  {id:'l07',icon:'🏠',level:'A2',title:'Дом и мебель',                   desc:'Комнаты, мебель, бытовые предметы',          cat:'home',   xp:40},
-  {id:'l08',icon:'🚌',level:'A2',title:'Транспорт',                      desc:'Автобус, метро, такси, самолёт',              cat:'transport',xp:40},
-  {id:'l09',icon:'👤',level:'A2',title:'Тело человека',                  desc:'Голова, руки, ноги и другие части тела',     cat:'body',   xp:40},
-  {id:'l10',icon:'💊',level:'B1',title:'Здоровье и медицина',            desc:'Врач, больница, лекарства, симптомы',        cat:'health', xp:50},
-  {id:'l11',icon:'💼',level:'B1',title:'Работа и профессии',             desc:'Учитель, врач, офис, зарплата',              cat:'work',   xp:50},
-  {id:'l12',icon:'🎓',level:'B1',title:'Учёба и образование',            desc:'Школа, экзамен, оценки, диплом',             cat:'study',  xp:50},
-  {id:'l13',icon:'📱',level:'B1',title:'Технологии',                     desc:'Телефон, интернет, компьютер',               cat:'tech',   xp:50},
-  {id:'l14',icon:'🛒',level:'B1',title:'Покупки и деньги',               desc:'Магазин, цена, касса, деньги',               cat:'shop',   xp:50},
-];
+const LESSONS=[];
 // ══════════════════════════════════════
 //  INIT
 // ══════════════════════════════════════
@@ -968,6 +1055,8 @@ async function init(){
     if(cnt) cnt.textContent='0';
   }
   loadCustomLessons();
+  loadCustomWords();
+  syncCustomWordsToAll();
   buildFilters(); applyFilter(); initTheme(); checkStreak();
 }
 function checkStreak(){
@@ -2018,6 +2107,305 @@ function showCertificate(level) {
 }
 
 
+
+// ══════════════════════════════════════
+//  TEACHER — WORDS CRUD
+// ══════════════════════════════════════
+var CUSTOM_WORDS_KEY = 'rsl_custom_words';
+// customWords: [{id, text, videos:[], desc, custom:true}]
+var customWords = [];
+var wcPage = 0;
+var wcPerPage = 15;
+var wcQuery = '';
+var wmEditId = null; // null = new
+var wmFileDataUrl = null;
+
+function loadCustomWords(){
+  try{
+    var saved = localStorage.getItem(CUSTOM_WORDS_KEY);
+    customWords = saved ? JSON.parse(saved) : [];
+  }catch(e){ customWords=[]; }
+}
+
+function saveCustomWords(){
+  localStorage.setItem(CUSTOM_WORDS_KEY, JSON.stringify(customWords));
+  // merge into allWords
+  syncCustomWordsToAll();
+}
+
+function syncCustomWordsToAll(){
+  // Remove old custom words from allWords
+  allWords = allWords.filter(w => !w.custom);
+  // Add current custom words
+  customWords.forEach(function(w){
+    if(!allWords.find(x=>x.id===w.id)) allWords.push(w);
+  });
+  // Update UI counts
+  var ti = document.getElementById('ti-total');
+  if(ti) ti.textContent = allWords.length.toLocaleString();
+}
+
+// Override loadCustomLessons to also load custom words
+var _origLoadCustomLessons = loadCustomLessons;
+function loadCustomLessons(){
+  _origLoadCustomLessons();
+  loadCustomWords();
+}
+
+// ── Words list ──────────────────────────────────────────────
+function wcSearch(){
+  wcQuery = (document.getElementById('wc-search').value||'').toLowerCase().trim();
+  wcPage = 0;
+  renderWcList();
+}
+
+function wcGetFiltered(){
+  var src = allWords;
+  if(!wcQuery) return src;
+  return src.filter(function(w){ return w.text.toLowerCase().includes(wcQuery); });
+}
+
+function renderWcList(){
+  var filtered = wcGetFiltered();
+  var total = filtered.length;
+  var start = wcPage * wcPerPage;
+  var page = filtered.slice(start, start + wcPerPage);
+
+  var countEl = document.getElementById('wc-count');
+  if(countEl) countEl.textContent = ' — найдено: '+total;
+
+  var list = document.getElementById('wc-list');
+  if(!list) return;
+  list.innerHTML = '';
+
+  if(!page.length){
+    list.innerHTML = '<div class="wc-empty">🤲 Слова не найдены</div>';
+    document.getElementById('wc-pagination').innerHTML='';
+    return;
+  }
+
+  page.forEach(function(w){
+    var item = document.createElement('div');
+    item.className = 'wc-item';
+    var vid = w.videos && w.videos[0];
+    var isCustom = !!w.custom;
+    item.innerHTML =
+      (vid
+        ? '<video class="wc-thumb" src="'+vid+'" muted loop preload="metadata"></video>'
+        : '<div class="wc-thumb-placeholder">🤟</div>') +
+      '<div class="wc-info">'+
+        '<div class="wc-word">'+w.text+(isCustom?'<span class="wc-badge">моё</span>':'')+'</div>'+
+        '<div class="wc-id">#'+w.id+'</div>'+
+        (vid?'<div class="wc-url">'+vid+'</div>':'<div class="wc-url" style="color:var(--danger)">нет видео</div>')+
+      '</div>'+
+      '<div class="wc-btns">'+
+        '<button class="wc-btn wc-btn-edit" title="Редактировать" onclick="openEditWord('+w.id+')">✏️</button>'+
+        (isCustom?'<button class="wc-btn wc-btn-del" title="Удалить" onclick="deleteWord('+w.id+')">🗑</button>':'')+
+      '</div>';
+    // hover video play
+    var v = item.querySelector('video');
+    if(v){
+      item.addEventListener('mouseenter',function(){ v.play().catch(function(){}); });
+      item.addEventListener('mouseleave',function(){ v.pause(); v.currentTime=0; });
+    }
+    list.appendChild(item);
+  });
+
+  // Pagination
+  renderWcPagination(total);
+}
+
+function renderWcPagination(total){
+  var pages = Math.ceil(total / wcPerPage);
+  var wrap = document.getElementById('wc-pagination');
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  if(pages <= 1) return;
+
+  // prev
+  var prev = document.createElement('button');
+  prev.className = 'wc-page-btn';
+  prev.textContent = '‹';
+  prev.disabled = wcPage === 0;
+  prev.onclick = function(){ wcPage--; renderWcList(); };
+  wrap.appendChild(prev);
+
+  // page numbers (show up to 5 around current)
+  var start = Math.max(0, wcPage-2);
+  var end = Math.min(pages-1, wcPage+2);
+  for(var i=start;i<=end;i++){
+    (function(pi){
+      var btn = document.createElement('button');
+      btn.className = 'wc-page-btn' + (pi===wcPage?' active':'');
+      btn.textContent = pi+1;
+      btn.onclick = function(){ wcPage=pi; renderWcList(); };
+      wrap.appendChild(btn);
+    })(i);
+  }
+
+  // next
+  var next = document.createElement('button');
+  next.className = 'wc-page-btn';
+  next.textContent = '›';
+  next.disabled = wcPage >= pages-1;
+  next.onclick = function(){ wcPage++; renderWcList(); };
+  wrap.appendChild(next);
+
+  // info
+  var info = document.createElement('span');
+  info.className = 'wc-page-info';
+  info.textContent = (wcPage*wcPerPage+1)+'–'+Math.min((wcPage+1)*wcPerPage,total)+' из '+total;
+  wrap.appendChild(info);
+}
+
+// ── Word modal ──────────────────────────────────────────────
+function openAddWord(){
+  wmEditId = null;
+  wmFileDataUrl = null;
+  document.getElementById('wm-title').textContent = 'Новое слово';
+  document.getElementById('wm-text').value = '';
+  document.getElementById('wm-url').value = '';
+  document.getElementById('wm-desc').value = '';
+  document.getElementById('wm-error').textContent = '';
+  document.getElementById('wm-preview-wrap').style.display = 'none';
+  document.getElementById('wm-preview').src = '';
+  document.getElementById('wm-file-input').value = '';
+  wmVideoTab('url');
+  document.getElementById('word-modal').style.display = 'flex';
+  setTimeout(function(){ document.getElementById('wm-text').focus(); }, 100);
+}
+
+function openEditWord(id){
+  var w = allWords.find(function(x){ return x.id===id; });
+  if(!w) return;
+  wmEditId = id;
+  wmFileDataUrl = null;
+  document.getElementById('wm-title').textContent = 'Редактировать: '+w.text;
+  document.getElementById('wm-text').value = w.text;
+  document.getElementById('wm-url').value = (w.videos && w.videos[0]) || '';
+  document.getElementById('wm-desc').value = w.desc||'';
+  document.getElementById('wm-error').textContent = '';
+  wmVideoTab('url');
+  // show preview if has video
+  if(w.videos && w.videos[0]){
+    document.getElementById('wm-preview').src = w.videos[0];
+    document.getElementById('wm-preview-wrap').style.display = '';
+  } else {
+    document.getElementById('wm-preview-wrap').style.display = 'none';
+  }
+  document.getElementById('word-modal').style.display = 'flex';
+}
+
+function closeWordModal(){
+  document.getElementById('word-modal').style.display = 'none';
+  wmFileDataUrl = null;
+}
+
+function wmVideoTab(tab){
+  document.getElementById('wm-url-section').style.display = tab==='url'?'':'none';
+  document.getElementById('wm-file-section').style.display = tab==='file'?'':'none';
+  document.querySelectorAll('.wm-tab').forEach(function(b,i){
+    b.classList.toggle('active', (i===0&&tab==='url')||(i===1&&tab==='file'));
+  });
+}
+
+function wmPreviewUrl(){
+  var url = document.getElementById('wm-url').value.trim();
+  var preview = document.getElementById('wm-preview');
+  if(url){
+    preview.src = url;
+    document.getElementById('wm-preview-wrap').style.display = '';
+  } else {
+    document.getElementById('wm-preview-wrap').style.display = 'none';
+  }
+}
+
+function wmHandleFile(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  if(file.size > 52428800){ // 50MB
+    document.getElementById('wm-error').textContent = 'Файл слишком большой (максимум 50MB)';
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    wmFileDataUrl = ev.target.result;
+    var preview = document.getElementById('wm-preview');
+    preview.src = wmFileDataUrl;
+    document.getElementById('wm-preview-wrap').style.display = '';
+    document.getElementById('wm-error').textContent = '';
+  };
+  reader.readAsDataURL(file);
+  // Update upload area text
+  var area = document.querySelector('.wm-upload-area .wm-upload-text');
+  if(area) area.innerHTML = '✅ <b>'+file.name+'</b><br><span style="color:var(--muted)">'+Math.round(file.size/1024)+'KB</span>';
+}
+
+function saveWordModal(){
+  var text = document.getElementById('wm-text').value.trim();
+  if(!text){ document.getElementById('wm-error').textContent='Введите название жеста'; return; }
+
+  var videoSrc = '';
+  var tab = document.querySelector('.wm-tab.active');
+  var isFile = tab && tab.textContent.includes('файл');
+
+  if(isFile){
+    if(!wmFileDataUrl && !wmEditId){
+      document.getElementById('wm-error').textContent='Загрузите видео файл';
+      return;
+    }
+    videoSrc = wmFileDataUrl || (allWords.find(function(w){return w.id===wmEditId;})||{videos:[]}).videos[0]||'';
+  } else {
+    videoSrc = document.getElementById('wm-url').value.trim();
+  }
+
+  if(!videoSrc){ document.getElementById('wm-error').textContent='Добавьте видео (ссылку или файл)'; return; }
+
+  var desc = document.getElementById('wm-desc').value.trim();
+
+  if(wmEditId !== null){
+    // Edit existing
+    var idx = allWords.findIndex(function(w){ return w.id===wmEditId; });
+    if(idx>=0){
+      allWords[idx].text = text;
+      allWords[idx].videos = [videoSrc];
+      allWords[idx].desc = desc;
+      // if custom — update in customWords too
+      if(allWords[idx].custom){
+        var ci = customWords.findIndex(function(w){ return w.id===wmEditId; });
+        if(ci>=0){ customWords[ci]=allWords[idx]; }
+        saveCustomWords();
+      }
+    }
+  } else {
+    // Add new
+    var newId = Date.now(); // unique id
+    var newWord = {id:newId, text:text, videos:[videoSrc], desc:desc, custom:true};
+    customWords.push(newWord);
+    allWords.push(newWord);
+    saveCustomWords();
+  }
+
+  // Refresh
+  closeWordModal();
+  wcPage = 0;
+  wcQuery = '';
+  document.getElementById('wc-search').value = '';
+  renderWcList();
+  applyFilter(); // refresh dictionary too
+}
+
+function deleteWord(id){
+  var w = allWords.find(function(x){ return x.id===id; });
+  if(!w||!w.custom){ alert('Можно удалять только добавленные вами слова'); return; }
+  if(!confirm('Удалить слово "'+w.text+'"?')) return;
+  customWords = customWords.filter(function(x){ return x.id!==id; });
+  allWords = allWords.filter(function(x){ return x.id!==id; });
+  saveCustomWords();
+  renderWcList();
+  applyFilter();
+}
+
 // ══════════════════════════════════════
 //  TEACHER PANEL
 // ══════════════════════════════════════
@@ -2048,6 +2436,8 @@ function showTeacherMain(){
   document.getElementById('teacher-main').style.display='';
   loadTeacherLessons();
   loadTopicGrid();
+  loadCustomWords();
+  syncCustomWordsToAll();
   document.getElementById('ti-total').textContent=allWords.length.toLocaleString();
   document.getElementById('ti-courses').textContent=LESSONS.length;
   document.getElementById('ti-pin').textContent=getTeacherPin().replace(/./g,'•');
@@ -2078,12 +2468,14 @@ function pinInput(idx){
 }
 
 function teacherTab(name){
-  document.querySelectorAll('.teacher-tab').forEach((b,i)=>{
-    const names=['lessons','topics','tinfo'];
+  var names=['lessons','words','topics','tinfo'];
+  document.querySelectorAll('.teacher-tab').forEach(function(b,i){
     b.classList.toggle('active', names[i]===name);
-    document.getElementById('tt-'+names[i]).classList.toggle('active', names[i]===name);
+    var sec=document.getElementById('tt-'+names[i]);
+    if(sec) sec.classList.toggle('active', names[i]===name);
   });
   if(name==='topics') loadTopicGrid();
+  if(name==='words'){ wcPage=0; wcQuery=''; document.getElementById('wc-search').value=''; renderWcList(); }
 }
 
 // ── Lessons list ──────────────────────────────────────────────

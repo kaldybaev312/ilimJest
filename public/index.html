@@ -457,7 +457,7 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
       <div class="dict-stat">Найдено: <b id="count">0</b></div>
     </div>
     <div id="grid"></div>
-    <div class="load-more-wrap"><button id="loadmore">Загрузить ещё</button></div>
+    <div class="load-more-wrap"><button id="loadmore" onclick="loadMore()">Загрузить ещё</button></div>
   </div>
 
   <!-- COURSE -->
@@ -944,7 +944,22 @@ const LESSONS=[
 //  INIT
 // ══════════════════════════════════════
 async function init(){
-  try{const r=await fetch('/api/words');allWords=await r.json();}catch(e){allWords=[];}
+  try{
+    const r=await fetch('/api/words');
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    allWords=Array.isArray(data)?data:[];
+  }catch(e){
+    console.error('API error:',e.message);
+    allWords=[];
+    // Show helpful error in grid
+    const grid=document.getElementById('grid');
+    if(grid) grid.innerHTML='<div class="empty"><div class="empty-icon">⚠️</div><h3>Нет соединения с сервером</h3><p>Проверьте интернет или настройки Vercel / MongoDB</p></div>';
+    const lm=document.getElementById('loadmore');
+    if(lm) lm.style.display='none';
+    const cnt=document.getElementById('count');
+    if(cnt) cnt.textContent='0';
+  }
   loadCustomLessons();
   buildFilters(); applyFilter(); initTheme(); checkStreak();
 }

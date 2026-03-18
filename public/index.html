@@ -37,6 +37,76 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
 .back-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:all .2s;flex-shrink:0}
 .back-btn:hover{border-color:var(--accent);color:var(--accent)}
 
+
+/* ══ TEACHER PANEL ══ */
+.teacher-lock{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:48px 24px;text-align:center}
+.teacher-lock-icon{font-size:48px}
+.teacher-lock h2{font-family:'Raleway',sans-serif;font-size:20px;font-weight:800;color:var(--text)}
+.teacher-lock p{font-size:14px;color:var(--muted);max-width:320px}
+.teacher-pin-input{display:flex;gap:8px;justify-content:center;margin-top:4px}
+.teacher-pin-input input{width:44px;height:44px;text-align:center;font-size:18px;font-weight:700;border-radius:10px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-family:'Raleway',sans-serif;transition:border-color .2s}
+.teacher-pin-input input:focus{outline:none;border-color:var(--accent)}
+.teacher-pin-error{color:var(--danger);font-size:13px;font-weight:600;min-height:18px}
+
+.teacher-panel{padding:0}
+.teacher-tabs{display:flex;gap:3px;background:var(--tag-bg);border-radius:10px;padding:3px;margin-bottom:18px}
+.teacher-tab{flex:1;padding:8px;border-radius:7px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:'Noto Sans',sans-serif;color:var(--muted);background:transparent;transition:all .2s}
+.teacher-tab.active{background:var(--surface);color:var(--accent);box-shadow:0 1px 4px var(--shadow)}
+.teacher-section{display:none}
+.teacher-section.active{display:block}
+
+/* lesson cards in teacher */
+.tl-list{display:flex;flex-direction:column;gap:10px}
+.tl-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;cursor:default}
+.tl-card:hover{border-color:var(--accent)}
+.tl-icon{font-size:24px;width:36px;text-align:center;flex-shrink:0}
+.tl-info{flex:1;min-width:0}
+.tl-title{font-family:'Raleway',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.tl-meta{font-size:11px;color:var(--muted)}
+.tl-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--tag-bg);color:var(--accent);border:1px solid var(--border);flex-shrink:0}
+.tl-actions{display:flex;gap:6px;flex-shrink:0}
+.tl-btn{width:30px;height:30px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .2s}
+.tl-btn-edit{background:var(--tag-bg);color:var(--accent)}
+.tl-btn-edit:hover{background:var(--accent);color:#fff}
+.tl-btn-del{background:#fee2e2;color:#dc2626}
+.tl-btn-del:hover{background:#dc2626;color:#fff}
+.tl-btn-drag{background:var(--tag-bg);color:var(--muted);cursor:grab}
+.tl-card.dragging{opacity:.4;border-style:dashed}
+
+/* word chips in lesson editor */
+.tw-chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:var(--tag-bg);border-radius:10px;min-height:48px;border:1.5px solid var(--border);max-height:200px;overflow-y:auto}
+.tw-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background:var(--surface);border:1px solid var(--border);border-radius:20px;font-size:12px;color:var(--text);font-family:'Noto Sans',sans-serif}
+.tw-chip button{background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;padding:0;line-height:1;transition:color .15s}
+.tw-chip button:hover{color:var(--danger)}
+.tw-search{position:relative;margin-top:6px}
+.tw-search input{width:100%;padding:8px 12px 8px 36px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;font-family:'Noto Sans',sans-serif}
+.tw-search input:focus{outline:none;border-color:var(--accent)}
+.tw-search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.tw-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;max-height:180px;overflow-y:auto;z-index:100;box-shadow:0 6px 20px var(--shadow)}
+.tw-option{padding:8px 12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:8px;transition:background .15s}
+.tw-option:hover{background:var(--tag-bg)}
+.tw-option video,.tw-option-thumb{width:32px;height:32px;object-fit:cover;border-radius:4px;flex-shrink:0}
+
+/* modal overlay */
+.tl-modal{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px}
+.tl-modal-box{background:var(--bg);border-radius:16px;padding:24px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.tl-modal-box h3{font-family:'Raleway',sans-serif;font-size:18px;font-weight:800;color:var(--text);margin-bottom:16px}
+.tl-form-row{margin-bottom:14px}
+.tl-form-label{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;display:block}
+.tl-form-input{width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:14px;font-family:'Noto Sans',sans-serif;box-sizing:border-box;transition:border-color .2s}
+.tl-form-input:focus{outline:none;border-color:var(--accent)}
+.tl-form-row-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tl-modal-footer{display:flex;gap:8px;margin-top:18px;justify-content:flex-end}
+
+/* stats topic picker */
+.topic-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.topic-card{border:1.5px solid var(--border);border-radius:10px;padding:10px;cursor:pointer;text-align:center;transition:all .2s;background:var(--surface)}
+.topic-card:hover,.topic-card.sel{border-color:var(--accent);background:var(--tag-bg)}
+.topic-card.sel{box-shadow:0 0 0 2px var(--accent)}
+.topic-icon{font-size:24px;margin-bottom:4px}
+.topic-name{font-size:11px;font-weight:700;color:var(--text)}
+.topic-count{font-size:10px;color:var(--muted)}
+
 /* ── SPACED REPETITION & WEAK WORDS ── */
 .srs-badge{position:absolute;top:7px;right:7px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:8px;background:rgba(230,57,70,.15);color:var(--danger);border:1px solid var(--danger)}
 .word-progress{display:flex;gap:3px;margin-top:6px}
@@ -365,6 +435,7 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
       <button class="nav-tab" data-page="quiz"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Тест</button>
       <button class="nav-tab" data-page="favs"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Избранное</button>
       <button class="nav-tab" data-page="stats"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Статистика</button>
+      <button class="nav-tab" data-page="teacher"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="4"/><path d="M3 20c0-4 4-7 9-7s9 3 9 7"/><path d="M16 3l1.5 1.5L20 2"/></svg>Учитель</button>
       <button class="nav-tab" data-page="settings"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Настройки</button>
     </div>
     <div class="search-wrap">
@@ -621,6 +692,152 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
       </div>
     </div>
   </div>
+
+  <!-- ═══════════ TEACHER PAGE ═══════════ -->
+  <div id="page-teacher" style="display:none">
+    <div id="teacher-lock">
+      <div class="teacher-lock">
+        <div class="teacher-lock-icon">🔐</div>
+        <h2>Панель учителя</h2>
+        <p>Введите PIN-код для доступа к управлению курсами</p>
+        <div class="teacher-pin-input">
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" id="pin0" oninput="pinInput(0)">
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" id="pin1" oninput="pinInput(1)">
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" id="pin2" oninput="pinInput(2)">
+          <input type="password" inputmode="numeric" maxlength="1" class="pin-digit" id="pin3" oninput="pinInput(3)">
+        </div>
+        <div class="teacher-pin-error" id="pin-error"></div>
+        <button class="btn btn-ghost" onclick="openPinChange()" style="font-size:12px;margin-top:4px">Изменить PIN</button>
+      </div>
+    </div>
+    <div id="teacher-main" style="display:none">
+      <div class="page-header">
+        <h1 class="page-title">🎓 Панель учителя</h1>
+        <button class="btn btn-ghost" onclick="teacherLogout()" style="font-size:12px">Выйти</button>
+      </div>
+      <div class="teacher-panel">
+        <div class="teacher-tabs">
+          <button class="teacher-tab active" onclick="teacherTab('lessons')">📚 Курсы</button>
+          <button class="teacher-tab" onclick="teacherTab('topics')">🏷️ Темы</button>
+          <button class="teacher-tab" onclick="teacherTab('tinfo')">ℹ️ Инфо</button>
+        </div>
+
+        <!-- COURSES TAB -->
+        <div id="tt-lessons" class="teacher-section active">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <span style="font-size:13px;color:var(--muted)" id="tl-count"></span>
+            <button class="btn btn-primary" onclick="openAddLesson()" style="font-size:12px;padding:7px 14px">+ Добавить курс</button>
+          </div>
+          <div class="tl-list" id="tl-list"></div>
+        </div>
+
+        <!-- TOPICS TAB -->
+        <div id="tt-topics" class="teacher-section">
+          <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Выберите тему чтобы посмотреть сколько слов в базе</p>
+          <div class="topic-grid" id="topic-grid"></div>
+          <div id="topic-detail" style="display:none;margin-top:16px">
+            <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px" id="topic-detail-title"></div>
+            <div class="tw-chips" id="topic-detail-chips" style="max-height:140px"></div>
+          </div>
+        </div>
+
+        <!-- INFO TAB -->
+        <div id="tt-tinfo" class="teacher-section">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="card" style="padding:14px 16px">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:4px">Всего слов в базе</div>
+              <div style="font-size:28px;font-weight:900;font-family:'Raleway',sans-serif;color:var(--accent)" id="ti-total">—</div>
+            </div>
+            <div class="card" style="padding:14px 16px">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:4px">Активных курсов</div>
+              <div style="font-size:28px;font-weight:900;font-family:'Raleway',sans-serif;color:var(--accent)" id="ti-courses">—</div>
+            </div>
+            <div class="card" style="padding:14px 16px">
+              <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:4px">PIN для входа</div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span style="font-size:18px;font-weight:700;letter-spacing:4px;color:var(--text)" id="ti-pin">****</span>
+                <button class="btn btn-ghost" onclick="openPinChange()" style="font-size:12px">Изменить</button>
+              </div>
+            </div>
+            <button class="btn btn-ghost" onclick="exportLessons()" style="font-size:13px">📤 Экспортировать курсы (JSON)</button>
+            <label style="font-size:13px" class="btn btn-ghost">📥 Импортировать курсы (JSON)<input type="file" accept=".json" onchange="importLessons(event)" style="display:none"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LESSON MODAL -->
+  <div class="tl-modal" id="lesson-modal" style="display:none">
+    <div class="tl-modal-box">
+      <h3 id="lm-title">Новый курс</h3>
+      <div class="tl-form-row-2">
+        <div class="tl-form-row">
+          <label class="tl-form-label">Иконка (эмодзи)</label>
+          <input class="tl-form-input" id="lm-icon" placeholder="📚" maxlength="4">
+        </div>
+        <div class="tl-form-row">
+          <label class="tl-form-label">Уровень</label>
+          <select class="tl-form-input" id="lm-level">
+            <option value="A1">A1 — Начальный</option>
+            <option value="A2">A2 — Базовый</option>
+            <option value="B1">B1 — Средний</option>
+            <option value="B2">B2 — Выше среднего</option>
+          </select>
+        </div>
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Название курса</label>
+        <input class="tl-form-input" id="lm-name" placeholder="Приветствие и базовое общение">
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Описание</label>
+        <input class="tl-form-input" id="lm-desc" placeholder="Привет, спасибо, как дела…">
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">XP за урок</label>
+        <input class="tl-form-input" id="lm-xp" type="number" placeholder="30" min="5" max="200">
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Слова курса <span id="lm-word-count" style="color:var(--muted);font-weight:400"></span></label>
+        <div class="tw-chips" id="lm-chips"></div>
+        <div class="tw-search" style="margin-top:8px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="lm-word-search" placeholder="Найти слово…" oninput="lmSearch()" autocomplete="off">
+          <div class="tw-dropdown" id="lm-dropdown" style="display:none"></div>
+        </div>
+      </div>
+      <div class="tl-modal-footer">
+        <button class="btn btn-ghost" onclick="closeLessonModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveLessonModal()">💾 Сохранить</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIN CHANGE MODAL -->
+  <div class="tl-modal" id="pin-modal" style="display:none">
+    <div class="tl-modal-box" style="max-width:320px">
+      <h3>Изменить PIN</h3>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Текущий PIN</label>
+        <input class="tl-form-input" id="pm-old" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Новый PIN (4 цифры)</label>
+        <input class="tl-form-input" id="pm-new" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+      </div>
+      <div class="tl-form-row">
+        <label class="tl-form-label">Повторить PIN</label>
+        <input class="tl-form-input" id="pm-new2" type="password" inputmode="numeric" maxlength="4" placeholder="••••">
+      </div>
+      <div class="teacher-pin-error" id="pm-error"></div>
+      <div class="tl-modal-footer">
+        <button class="btn btn-ghost" onclick="document.getElementById('pin-modal').style.display='none'">Отмена</button>
+        <button class="btn btn-primary" onclick="savePinChange()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <div class="mobile-tabs">
@@ -630,6 +847,7 @@ main{max-width:1440px;margin:0 auto;padding:22px 20px 100px}
   <button class="mobile-tab" data-page="quiz"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Тест</button>
   <button class="mobile-tab" data-page="favs"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Избранное</button>
   <button class="mobile-tab" data-page="stats"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Прогресс</button>
+  <button class="mobile-tab" data-page="teacher"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M3 20c0-4 4-7 9-7s9 3 9 7"/><path d="M16 3l1.5 1.5L20 2"/></svg>Учитель</button>
   <button class="mobile-tab" data-page="settings"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Инфо</button>
 </div>
 
@@ -727,6 +945,7 @@ const LESSONS=[
 // ══════════════════════════════════════
 async function init(){
   try{const r=await fetch('/api/words');allWords=await r.json();}catch(e){allWords=[];}
+  loadCustomLessons();
   buildFilters(); applyFilter(); initTheme(); checkStreak();
 }
 function checkStreak(){
@@ -749,6 +968,7 @@ function saveCourse(){
 //  NAV
 // ══════════════════════════════════════
 function goTo(page){
+  if(page==='teacher'){setTimeout(()=>initTeacherPage(),0);}
   ['dict','course','flash','quiz','favs','stats','settings'].forEach(p=>
     document.getElementById('page-'+p).style.display=p===page?'block':'none');
   document.querySelectorAll('.nav-tab,.mobile-tab').forEach(t=>
@@ -1773,6 +1993,343 @@ function showCertificate(level) {
       </div>
     </div>`;
   document.getElementById('lesson-runner').style.display='block';
+}
+
+
+// ══════════════════════════════════════
+//  TEACHER PANEL
+// ══════════════════════════════════════
+var TEACHER_PIN_KEY = 'rsl_teacher_pin';
+var TEACHER_AUTH_KEY = 'rsl_teacher_auth';
+var CUSTOM_LESSONS_KEY = 'rsl_custom_lessons';
+var DEFAULT_PIN = '1234';
+
+function getTeacherPin(){ return localStorage.getItem(TEACHER_PIN_KEY)||DEFAULT_PIN; }
+function isTeacherAuth(){ return sessionStorage.getItem(TEACHER_AUTH_KEY)==='1'; }
+
+function initTeacherPage(){
+  if(isTeacherAuth()){ showTeacherMain(); }
+  else { showTeacherLock(); }
+}
+function showTeacherLock(){
+  document.getElementById('teacher-lock').style.display='';
+  document.getElementById('teacher-main').style.display='none';
+  ['pin0','pin1','pin2','pin3'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  document.getElementById('pin-error').textContent='';
+  setTimeout(()=>document.getElementById('pin0')?.focus(),100);
+}
+function showTeacherMain(){
+  document.getElementById('teacher-lock').style.display='none';
+  document.getElementById('teacher-main').style.display='';
+  loadTeacherLessons();
+  loadTopicGrid();
+  document.getElementById('ti-total').textContent=allWords.length.toLocaleString();
+  document.getElementById('ti-courses').textContent=LESSONS.length;
+  document.getElementById('ti-pin').textContent=getTeacherPin().replace(/./g,'•');
+}
+function teacherLogout(){
+  sessionStorage.removeItem(TEACHER_AUTH_KEY);
+  showTeacherLock();
+}
+function pinInput(idx){
+  const val=document.getElementById('pin'+idx).value;
+  if(val&&idx<3) document.getElementById('pin'+(idx+1)).focus();
+  // check if all filled
+  const digits=['pin0','pin1','pin2','pin3'].map(id=>document.getElementById(id).value);
+  if(digits.every(d=>d.length===1)){
+    const entered=digits.join('');
+    if(entered===getTeacherPin()){
+      sessionStorage.setItem(TEACHER_AUTH_KEY,'1');
+      document.getElementById('pin-error').textContent='';
+      showTeacherMain();
+    } else {
+      document.getElementById('pin-error').textContent='Неверный PIN';
+      setTimeout(()=>{
+        ['pin0','pin1','pin2','pin3'].forEach(id=>{ document.getElementById(id).value=''; });
+        document.getElementById('pin0').focus();
+      },700);
+    }
+  }
+}
+
+function teacherTab(name){
+  document.querySelectorAll('.teacher-tab').forEach((b,i)=>{
+    const names=['lessons','topics','tinfo'];
+    b.classList.toggle('active', names[i]===name);
+    document.getElementById('tt-'+names[i]).classList.toggle('active', names[i]===name);
+  });
+  if(name==='topics') loadTopicGrid();
+}
+
+// ── Lessons list ──────────────────────────────────────────────
+function loadTeacherLessons(){
+  const list=document.getElementById('tl-list');
+  list.innerHTML='';
+  document.getElementById('tl-count').textContent=LESSONS.length+' курсов';
+  LESSONS.forEach((l,idx)=>{
+    const words=getLessonWords(l);
+    const card=document.createElement('div');
+    card.className='tl-card';
+    card.draggable=true;
+    card.dataset.idx=idx;
+    card.innerHTML=`
+      <div class="tl-btn tl-btn-drag" title="Перетащить">⠿</div>
+      <div class="tl-icon">${l.icon||'📚'}</div>
+      <div class="tl-info">
+        <div class="tl-title">${l.title}</div>
+        <div class="tl-meta">${l.desc||''}  •  ${words.length} слов  •  +${l.xp} XP</div>
+      </div>
+      <div class="tl-badge">${l.level}</div>
+      <div class="tl-actions">
+        <button class="tl-btn tl-btn-edit" title="Редактировать" onclick="openEditLesson(${idx})">✏️</button>
+        <button class="tl-btn tl-btn-del" title="Удалить" onclick="deleteLesson(${idx})">🗑</button>
+      </div>
+    `;
+    // drag reorder
+    card.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',idx);card.classList.add('dragging');});
+    card.addEventListener('dragend',()=>card.classList.remove('dragging'));
+    card.addEventListener('dragover',e=>{e.preventDefault();});
+    card.addEventListener('drop',e=>{
+      e.preventDefault();
+      const fromIdx=parseInt(e.dataTransfer.getData('text/plain'));
+      const toIdx=parseInt(card.dataset.idx);
+      if(fromIdx===toIdx)return;
+      const moved=LESSONS.splice(fromIdx,1)[0];
+      LESSONS.splice(toIdx,0,moved);
+      saveCustomLessons();
+      loadTeacherLessons();
+    });
+    list.appendChild(card);
+  });
+}
+
+function getLessonWords(l){
+  if(l.wordIds && l.wordIds.length) return allWords.filter(w=>l.wordIds.includes(w.id));
+  if(l.cat && l.cat!=='all'){
+    const cat=CATS.find(c=>c.key===l.cat);
+    return cat ? allWords.filter(w=>cat.match(w.text.toLowerCase())) : [];
+  }
+  return [];
+}
+
+function saveCustomLessons(){
+  localStorage.setItem(CUSTOM_LESSONS_KEY, JSON.stringify(LESSONS));
+  document.getElementById('tl-count').textContent=LESSONS.length+' курсов';
+  document.getElementById('ti-courses').textContent=LESSONS.length;
+}
+
+function loadCustomLessons(){
+  const saved=localStorage.getItem(CUSTOM_LESSONS_KEY);
+  if(saved){
+    try{
+      const parsed=JSON.parse(saved);
+      if(Array.isArray(parsed)&&parsed.length>0){
+        LESSONS.length=0;
+        parsed.forEach(l=>LESSONS.push(l));
+      }
+    }catch(e){}
+  }
+}
+
+function deleteLesson(idx){
+  if(!confirm(`Удалить курс "${LESSONS[idx].title}"?`)) return;
+  LESSONS.splice(idx,1);
+  saveCustomLessons();
+  loadTeacherLessons();
+  buildLessonsUI();
+}
+
+// ── Lesson modal ──────────────────────────────────────────────
+var lmEditIdx = -1;  // -1 = new
+var lmWordIds = [];
+
+function openAddLesson(){
+  lmEditIdx=-1;
+  lmWordIds=[];
+  document.getElementById('lm-title').textContent='Новый курс';
+  document.getElementById('lm-icon').value='📚';
+  document.getElementById('lm-level').value='A1';
+  document.getElementById('lm-name').value='';
+  document.getElementById('lm-desc').value='';
+  document.getElementById('lm-xp').value='30';
+  renderLmChips();
+  document.getElementById('lm-word-search').value='';
+  document.getElementById('lm-dropdown').style.display='none';
+  document.getElementById('lesson-modal').style.display='flex';
+  setTimeout(()=>document.getElementById('lm-name').focus(),100);
+}
+
+function openEditLesson(idx){
+  lmEditIdx=idx;
+  const l=LESSONS[idx];
+  lmWordIds=l.wordIds?[...l.wordIds]:[];
+  document.getElementById('lm-title').textContent='Редактировать курс';
+  document.getElementById('lm-icon').value=l.icon||'📚';
+  document.getElementById('lm-level').value=l.level||'A1';
+  document.getElementById('lm-name').value=l.title||'';
+  document.getElementById('lm-desc').value=l.desc||'';
+  document.getElementById('lm-xp').value=l.xp||30;
+  renderLmChips();
+  document.getElementById('lm-word-search').value='';
+  document.getElementById('lm-dropdown').style.display='none';
+  document.getElementById('lesson-modal').style.display='flex';
+}
+
+function closeLessonModal(){
+  document.getElementById('lesson-modal').style.display='none';
+}
+
+function saveLessonModal(){
+  const name=document.getElementById('lm-name').value.trim();
+  if(!name){alert('Введите название курса');return;}
+  const lesson={
+    id: lmEditIdx>=0 ? LESSONS[lmEditIdx].id : 'c'+Date.now(),
+    icon: document.getElementById('lm-icon').value.trim()||'📚',
+    level: document.getElementById('lm-level').value,
+    title: name,
+    desc: document.getElementById('lm-desc').value.trim(),
+    xp: parseInt(document.getElementById('lm-xp').value)||30,
+    cat: 'all',
+    wordIds: [...lmWordIds]
+  };
+  if(lmEditIdx>=0){ LESSONS[lmEditIdx]=lesson; }
+  else { LESSONS.push(lesson); }
+  saveCustomLessons();
+  loadTeacherLessons();
+  buildLessonsUI();
+  closeLessonModal();
+}
+
+// ── Word chips in modal ───────────────────────────────────────
+function renderLmChips(){
+  const wrap=document.getElementById('lm-chips');
+  wrap.innerHTML='';
+  lmWordIds.forEach(id=>{
+    const w=allWords.find(x=>x.id===id);
+    if(!w) return;
+    const chip=document.createElement('span');
+    chip.className='tw-chip';
+    chip.innerHTML=`${w.text}<button onclick="lmRemoveWord(${id})" title="Убрать">×</button>`;
+    wrap.appendChild(chip);
+  });
+  document.getElementById('lm-word-count').textContent='('+lmWordIds.length+')';
+}
+
+function lmRemoveWord(id){
+  lmWordIds=lmWordIds.filter(x=>x!==id);
+  renderLmChips();
+}
+
+function lmSearch(){
+  const q=document.getElementById('lm-word-search').value.trim().toLowerCase();
+  const dd=document.getElementById('lm-dropdown');
+  if(!q){dd.style.display='none';return;}
+  const results=allWords.filter(w=>w.text.toLowerCase().includes(q)&&!lmWordIds.includes(w.id)).slice(0,12);
+  if(!results.length){dd.style.display='none';return;}
+  dd.innerHTML='';
+  results.forEach(w=>{
+    const opt=document.createElement('div');
+    opt.className='tw-option';
+    const vid=w.videos&&w.videos[0];
+    opt.innerHTML=`${vid?'<video src="'+vid+'" style="width:32px;height:32px;object-fit:cover;border-radius:4px" muted></video>':'<span style="width:32px;height:32px;background:var(--tag-bg);border-radius:4px;display:inline-block"></span>'}
+      <span>${w.text}</span>`;
+    opt.addEventListener('click',()=>{
+      lmWordIds.push(w.id);
+      renderLmChips();
+      document.getElementById('lm-word-search').value='';
+      dd.style.display='none';
+    });
+    dd.appendChild(opt);
+  });
+  dd.style.display='';
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.tw-search')) document.getElementById('lm-dropdown').style.display='none';
+});
+
+// ── Topics tab ────────────────────────────────────────────────
+function loadTopicGrid(){
+  const grid=document.getElementById('topic-grid');
+  grid.innerHTML='';
+  CATS.forEach(c=>{
+    if(c.key==='all') return;
+    const count=allWords.filter(w=>c.match(w.text.toLowerCase())).length;
+    const card=document.createElement('div');
+    card.className='topic-card';
+    card.innerHTML=`<div class="topic-icon">${c.label.split(' ')[0]}</div><div class="topic-name">${c.label.replace(/^[^ ]+ /,'')}</div><div class="topic-count">${count} слов</div>`;
+    card.onclick=()=>showTopicDetail(c,card);
+    grid.appendChild(card);
+  });
+}
+function showTopicDetail(cat,card){
+  document.querySelectorAll('.topic-card').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  const words=allWords.filter(w=>cat.match(w.text.toLowerCase())).slice(0,40);
+  document.getElementById('topic-detail-title').textContent=cat.label+' — '+words.length+' слов (показаны первые 40)';
+  const chips=document.getElementById('topic-detail-chips');
+  chips.innerHTML='';
+  words.forEach(w=>{
+    const chip=document.createElement('span');
+    chip.className='tw-chip';
+    chip.textContent=w.text;
+    chips.appendChild(chip);
+  });
+  document.getElementById('topic-detail').style.display='';
+}
+
+// ── PIN change ────────────────────────────────────────────────
+function openPinChange(){
+  document.getElementById('pm-old').value='';
+  document.getElementById('pm-new').value='';
+  document.getElementById('pm-new2').value='';
+  document.getElementById('pm-error').textContent='';
+  document.getElementById('pin-modal').style.display='flex';
+}
+function savePinChange(){
+  const old=document.getElementById('pm-old').value;
+  const newPin=document.getElementById('pm-new').value;
+  const newPin2=document.getElementById('pm-new2').value;
+  const err=document.getElementById('pm-error');
+  if(old!==getTeacherPin()){err.textContent='Неверный текущий PIN';return;}
+  if(!/^\d{4}$/.test(newPin)){err.textContent='PIN должен содержать 4 цифры';return;}
+  if(newPin!==newPin2){err.textContent='PIN-коды не совпадают';return;}
+  localStorage.setItem(TEACHER_PIN_KEY,newPin);
+  document.getElementById('pin-modal').style.display='none';
+  document.getElementById('ti-pin').textContent='••••';
+  alert('PIN успешно изменён!');
+}
+
+// ── Export/Import ─────────────────────────────────────────────
+function exportLessons(){
+  const data=JSON.stringify(LESSONS,null,2);
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(data);
+  a.download='rzhy_courses_'+Date.now()+'.json';
+  a.click();
+}
+function importLessons(e){
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const parsed=JSON.parse(ev.target.result);
+      if(!Array.isArray(parsed)) throw new Error('Неверный формат');
+      if(!confirm(`Импортировать ${parsed.length} курсов? Текущие курсы будут заменены.`)) return;
+      LESSONS.length=0;
+      parsed.forEach(l=>LESSONS.push(l));
+      saveCustomLessons();
+      loadTeacherLessons();
+      buildLessonsUI();
+      document.getElementById('ti-courses').textContent=LESSONS.length;
+      alert('Импортировано: '+parsed.length+' курсов');
+    }catch(err){alert('Ошибка импорта: '+err.message);}
+  };
+  reader.readAsText(file);
+  e.target.value='';
 }
 
 // ══════════════════════════════════════
